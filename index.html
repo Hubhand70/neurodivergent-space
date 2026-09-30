@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neurodivergent Space - Functional Support & Transition Toolkit</title>
+    <meta name="description" content="Accessible, sensory-friendly functional support and transition toolkit for neurodivergent individuals, families, caregivers, educators, and advocates.">
+    <!-- Google Fonts & Dyslexic-Friendly Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for accessible icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- RevenueCat Web SDK for Purchases & Paywalls -->
+    <script src="https://cdn.jsdelivr.net/npm/@revenuecat/purchases-js@latest/dist/purchases.umd.js"></script>
+    <!-- Chart.js for Functional Radar Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- jsPDF & html2canvas for PDF Download of Forms -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style id="v6-production-polish">
+:root{
+ --ink:#35251f; --ink2:#50372d; --cream:#fff8ee; --paper:#fbf2e7;
+ --clay:#a8755d; --clay2:#c9977d; --sage:#7b8666; --sage2:#a8ad8e;
+ --plum:#684060; --lilac:#d9bfd9; --line:#d6c2b4; --muted:#6f5b50;
+ --shadow:0 14px 32px rgba(69,43,34,.12);
+}
+body.calming-mode, body:not(.dark-mode):not(.high-contrast){
+ background:#f5eee6 !important;color:var(--ink)!important;
+}
+.sensory-toolbar{
+ background:#50352d!important;color:#fff7ed!important;padding:8px 20px!important;
+ border-bottom:1px solid rgba(255,255,255,.16)!important;
+}
+.sensory-controls{max-width:1500px!important;margin:auto!important;display:flex!important;
+ align-items:center!important;justify-content:space-between!important;gap:14px!important;flex-wrap:wrap!important}
+.sensory-group{display:flex!important;align-items:center!important;gap:7px!important;flex-wrap:nowrap!important}
+.sensory-label{color:#fff7ed!important;font-size:.9rem!important;white-space:nowrap!important}
+.sensory-btn{background:#684b40!important;color:#fff8ef!important;border:1px solid #8a695b!important;
+ padding:8px 12px!important;border-radius:10px!important}
+.sensory-btn.active{background:#b07a61!important;color:#241914!important;border-color:#c9957c!important}
+
+.app-header{background:linear-gradient(110deg,#f8ede7,#efe2d7 55%,#e4d7c6)!important;
+ color:var(--ink)!important;border-bottom:1px solid #cfb7a7!important;padding:20px 28px!important}
+.header-container{max-width:1500px!important;margin:auto!important;display:grid!important;
+ grid-template-columns:340px minmax(0,1fr) auto!important;align-items:center!important;gap:20px!important}
+.logo-title{color:#4b2d45!important;font-size:2rem!important;line-height:1.02!important}
+.logo-subtitle{color:#604a3f!important}.logo-icon{background:#efe0d7!important;color:#6a405f!important}
+.main-nav{display:flex!important;min-width:0!important;overflow-x:auto!important;gap:9px!important;padding:7px 3px 10px!important}
+.nav-link{flex:0 0 auto!important;background:#f8f0e9!important;color:#422c26!important;
+ border:1px solid #cdb5a6!important;border-radius:13px!important;padding:11px 15px!important;font-weight:800!important}
+.nav-link.active{background:#684060!important;color:#fff8f0!important;border-color:#684060!important}
+.btn-pro-unlock{background:#8a5b42!important;color:#fff8ef!important;border:1px solid #8a5b42!important;
+ border-radius:13px!important;padding:12px 16px!important;white-space:nowrap!important;font-weight:800!important}
+
+.main-content{max-width:1500px!important;margin:auto!important;padding:28px!important}
+.info-banner{background:linear-gradient(115deg,#f2e3d8,#e8dfcf)!important;color:#382821!important;
+ border:1px solid #ccb5a5!important;box-shadow:var(--shadow)!important}
+.info-banner strong,.info-banner i{color:#4b2d45!important}
+.alert-banner{background:#fff5e8!important;color:#3b2a23!important;border:1px solid #d8bca6!important}
+.alert-banner strong,.alert-banner i{color:#704a38!important}
+
+/* Kill the low-contrast purple-on-brown problem everywhere in normal/calming mode. */
+body:not(.dark-mode):not(.high-contrast) .card,
+body:not(.dark-mode):not(.high-contrast) .form-card,
+body:not(.dark-mode):not(.high-contrast) .interactive-card,
+body:not(.dark-mode):not(.high-contrast) .slider-group,
+body:not(.dark-mode):not(.high-contrast) .checkbox-card,
+body:not(.dark-mode):not(.high-contrast) .check-item,
+body:not(.dark-mode):not(.high-contrast) .activity-item,
+body:not(.dark-mode):not(.high-contrast) .support-item,
+body:not(.dark-mode):not(.high-contrast) .step-card{
+ background:#fffaf3!important;color:#35251f!important;border:1px solid #d6c2b4!important;
+ box-shadow:var(--shadow)!important
+}
+body:not(.dark-mode):not(.high-contrast) .card *,
+body:not(.dark-mode):not(.high-contrast) .form-card *,
+body:not(.dark-mode):not(.high-contrast) .interactive-card *,
+body:not(.dark-mode):not(.high-contrast) .slider-group *,
+body:not(.dark-mode):not(.high-contrast) .checkbox-card *,
+body:not(.dark-mode):not(.high-contrast) .check-item *{color:inherit}
+body:not(.dark-mode):not(.high-contrast) h1,
+body:not(.dark-mode):not(.high-contrast) h2,
+body:not(.dark-mode):not(.high-contrast) h3{color:#4a3044!important}
+body:not(.dark-mode):not(.high-contrast) p,
+body:not(.dark-mode):not(.high-contrast) label,
+body:not(.dark-mode):not(.high-contrast) .helper-text,
+body:not(.dark-mode):not(.high-contrast) .slider-labels{color:#5f4b40!important}
+body:not(.dark-mode):not(.high-contrast) input,
+body:not(.dark-mode):not(.high-contrast) select,
+body:not(.dark-mode):not(.high-contrast) textarea{
+ background:#fff!important;color:#2f211c!important;border:1px solid #bca596!important
+}
+body:not(.dark-mode):not(.high-contrast) input::placeholder,
+body:not(.dark-mode):not(.high-contrast) textarea::placeholder{color:#7a685d!important;opacity:1!important}
+input[type=range]{accent-color:#7b8666!important}
+
+/* Production-card rhythm */
+.card,.form-card,.interactive-card{border-radius:18px!important}
+.section-header h2{font-size:1.75rem!important;letter-spacing:-.02em!important}
+.badge{background:#eadde6!important;color:#4e3048!important;border:1px solid #cdb5c8!important}
+.btn,.btn-primary{border-radius:11px!important;font-weight:800!important}
+.btn-primary{background:#6e485f!important;color:#fff9f1!important;border:1px solid #6e485f!important}
+.btn-secondary{background:#e9dfcf!important;color:#35251f!important;border:1px solid #c9b6a7!important}
+
+/* Annual form cards: make them read as clean selectable modules, not dark voids. */
+#rcer .checkbox-card,#annual .checkbox-card,
+.checkbox-card{padding:20px!important;min-height:120px!important}
+.checkbox-card h3,.checkbox-card strong{color:#4a3044!important}
+.checkbox-card:has(input:checked){background:#edf0e4!important;border-color:#9da483!important;outline:2px solid #9da483!important}
+
+/* Snapshot gets an intentional panel instead of empty dark acreage. */
+.snapshot-card,.profile-snapshot{background:#f4eadf!important;color:#35251f!important}
+.empty-state{background:#f6eee5!important;color:#5d4a40!important;border:1px dashed #bca596!important}
+
+/* Preserve true accessibility modes. */
+body.dark-mode{background:#211c19!important;color:#f7eadb!important}
+body.dark-mode .sensory-toolbar{background:#191512!important}
+body.dark-mode .app-header{background:#30251f!important;color:#f7eadb!important}
+body.dark-mode .logo-title,body.dark-mode .logo-subtitle{color:#f7eadb!important}
+body.high-contrast{background:#000!important;color:#fff!important}
+
+/* The screenshot-1 layout should remain one elegant horizontal control rail on desktop. */
+@media(max-width:1150px){
+ .header-container{grid-template-columns:1fr auto!important}
+ .main-nav{grid-column:1/3!important}
+}
+@media(max-width:760px){
+ .sensory-controls{justify-content:flex-start!important}.sensory-group{flex-wrap:wrap!important}
+ .header-container{display:flex!important;flex-direction:column!important;align-items:stretch!important}
+ .main-content{padding:18px 14px!important}.app-header{padding:16px!important}
+}
+</style>
+
+</head>
+<body class="theme-calming font-medium">
+
+    <!-- Sensory & Accessibility Toolbar -->
+    <aside class="sensory-bar" aria-label="Sensory and Accessibility Controls">
+        <div class="sensory-container sensory-controls">
+            <div class="sensory-group">
+                <span class="sensory-label"><i class="fa-solid fa-eye"></i> Visual Theme:</span>
+                <button class="sensory-btn theme-btn active" data-theme="calming-mode" title="Soft Pastel Calming Mode">Calming</button>
+                <button class="sensory-btn theme-btn" data-theme="dark-mode" title="Dark Mode (Low Glare)">Dark Mode</button>
+                <button class="sensory-btn theme-btn" data-theme="high-contrast" title="High Contrast Mode">High Contrast</button>
+                <button class="sensory-btn theme-btn" data-theme="focus-mode" title="Monochrome Focus Mode">Focus Mode</button>
+            </div>
+            <div class="sensory-group">
+                <span class="sensory-label"><i class="fa-solid fa-text-height"></i> Text Size:</span>
+                <button class="sensory-btn font-control-btn" id="font-decrease" title="Decrease Font Size">A-</button>
+                <span id="font-size-indicator">100%</span>
+                <button class="sensory-btn font-control-btn" id="font-increase" title="Increase Font Size">A+</button>
+            </div>
+            <div class="sensory-group">
+                <span class="sensory-label"><i class="fa-solid fa-font"></i> Font:</span>
+                <button class="sensory-btn font-family-btn active" data-font="Lexend">Lexend</button>
+                <button class="sensory-btn font-family-btn" data-font="OpenSans">Open Sans</button>
+            </div>
+            <div class="sensory-group">
+                <button class="sensory-btn" id="toggle-motion" title="Toggle Micro-Animations"><i class="fa-solid fa-film"></i> Motion: On</button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Header & Navigation -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                <div>
+                    <h1 class="logo-title">Neurodivergent Space</h1>
+                    <p class="logo-subtitle">Functional Support & Transition Toolkit</p>
+                </div>
+            </div>
+
+            <nav class="main-nav" aria-label="Main Navigation">
+                <button class="nav-link active" data-target="assessment-section"><i class="fa-solid fa-clipboard-check"></i> Functional Assessment (0-10)</button>
+                <button class="nav-link" data-target="rcer-section"><i class="fa-solid fa-file-circle-check"></i> Annual Student Forms (RCER)</button>
+                <button class="nav-link" data-target="deescalate-section"><i class="fa-solid fa-heart-pulse"></i> Sensory Overload Kit</button>
+                <button class="nav-link" data-target="routine-section"><i class="fa-solid fa-calendar-check"></i> Visual Routine Planner</button>
+                <button class="nav-link" data-target="products-section"><i class="fa-solid fa-shapes"></i> Skills & Supported Activities</button>
+                <button class="nav-link" data-target="colleges-section"><i class="fa-solid fa-route"></i> Transition Resources</button>
+                <button class="nav-link" data-target="fafsa-section"><i class="fa-solid fa-list-check"></i> Education & Funding</button>
+                <button class="nav-link" data-target="mentors-section"><i class="fa-solid fa-people-roof"></i> Support Network</button>
+            </nav>
+
+            <div class="pro-badge-area">
+                <button class="btn-pro-unlock" id="open-paywall-btn"><i class="fa-solid fa-crown"></i> Unlock Pro Features</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+        
+        <section class="info-banner" aria-label="Important information">
+            <div class="banner-content">
+                <i class="fa-solid fa-shield-heart banner-icon"></i>
+                <div><strong>Support tool, not a diagnosis.</strong> This app helps organize self-, family-, caregiver-, educator-, and team-reported information. It does not replace an IEP team, clinical evaluation, medical advice, legal advice, or an institution’s official forms and eligibility decisions.</div>
+            </div>
+        </section>
+
+        <section class="alert-banner"><div class="alert-content"><i class="fa-solid fa-lock"></i><div><strong>Prototype privacy:</strong> Information you enter is saved only in this browser on this device. Do not enter medical records, Social Security numbers, insurance IDs, or other highly sensitive information into this competition prototype.</div></div></section>
+
+        <!-- Banner Alert -->
+        <section class="info-banner">
+            <div class="banner-content">
+                <i class="fa-solid fa-circle-info banner-icon"></i>
+                <div>
+                    <strong>Welcome to Neurodivergent Space!</strong> Designed for neurodivergent individuals, families, caregivers, educators, and advocates to document functional strengths, support needs, sensory preferences, routines, and transition information. Complete forms online or export a support summary for review with your existing school, care, or transition team.
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: FUNCTIONAL ASSESSMENT FORM (0-10 Scale) -->
+        <section id="assessment-section" class="app-section active">
+            <div class="section-header">
+                <div>
+                    <h2><i class="fa-solid fa-sliders"></i> Functional Assessment Form (0-10 Scale)</h2>
+                    <p class="section-desc">Evaluate autonomy, environmental sensory needs, assistance level, safety tolerances, and workplace preferences. Download or print the completed form anytime.</p>
+                </div>
+                <div class="section-actions">
+                    <button class="btn" id="save-profile-btn"><i class="fa-solid fa-floppy-disk"></i> Save Profile</button>
+                    <button class="btn" id="new-profile-btn"><i class="fa-solid fa-file-circle-plus"></i> New Profile</button>
+                    <button class="btn btn-primary" id="download-assessment-pdf"><i class="fa-solid fa-file-arrow-down"></i> Download Assessment PDF</button>
+                </div>
+            </div>
+
+            <div class="grid-layout">
+                <!-- Assessment Form Controls -->
+                <div class="card form-card" id="assessment-form-printable">
+                    <div class="form-header">
+                        <h3><i class="fa-solid fa-user-gear"></i> Participant & Assessment Profile</h3>
+                        <span class="badge badge-info">Fillable Online & Printable</span>
+                    </div>
+
+                    <form id="functional-assessment-form" onsubmit="event.preventDefault();">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="participant-name">Full Name / ID:</label>
+                                <input type="text" id="participant-name" placeholder="Enter name or ID" value="Alex Taylor">
+                            </div>
+                            <div class="form-group">
+                                <label for="assessor-role">Role:</label>
+                                <select id="assessor-role">
+                                    <option value="Self">Neurodivergent Individual (Self)</option>
+                                    <option value="Parent/Caregiver">Parent / Caregiver</option>
+                                    <option value="Vocational Counselor">Vocational Rehabilitation Counselor</option>
+                                    <option value="Educator">Educator / Mentor</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="target-age-group">Age Group:</label>
+                                <select id="target-age-group">
+                                    <option value="16-18">16 - 18 yrs (High School Transition)</option>
+                                    <option value="19-24" selected>19 - 24 yrs (College / Tech School)</option>
+                                    <option value="25+">25+ yrs (Career Transition / Upskilling)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="target-industry">Preferred Manufacturing Focus:</label>
+                                <select id="target-industry">
+                                    <option value="Polymer Recycling & Circular Economy">Polymer Recycling & Circular Economy (RCER)</option>
+                                    <option value="Precision Injection Molding">Precision Injection Molding</option>
+                                    <option value="Medical-Grade Plastics Fabrication">Medical-Grade Plastics Fabrication</option>
+                                    <option value="Additive Manufacturing (3D Printing Filament)">Additive Manufacturing (3D Filament)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <hr class="form-divider">
+
+                        <h4><i class="fa-solid fa-gauge-high"></i> 5 Core Functional Dimensions & Preferences</h4>
+
+                        <!-- Dimension 1 -->
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label for="score-independence">1. Independence:</label>
+                                <span class="score-value" id="val-independence">7 / 10</span>
+                            </div>
+                            <input type="range" id="score-independence" min="0" max="10" value="7" class="slider">
+                            <div class="scale-anchors"><span>0 = Direct/full assistance</span><span>10 = Independent</span></div>
+                            <div class="slider-labels">
+                                <span><strong style="color: #ef4444;">0</strong> = Requires 1-on-1 full assistance for all steps</span>
+                                <span><strong style="color: #10b981;">10</strong> = Fully independent without external prompts</span>
+                            </div>
+                        </div>
+
+                        <!-- Dimension 2 -->
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label for="score-environment">2. Environment / Sensory Tolerance:</label>
+                                <span class="score-value" id="val-environment">8 / 10</span>
+                            </div>
+                            <input type="range" id="score-environment" min="0" max="10" value="8" class="slider">
+                            <div class="scale-anchors"><span>0 = Highly controlled environment needed</span><span>10 = Tolerates varied environments</span></div>
+                            <div class="slider-labels">
+                                <span><strong style="color: #ef4444;">0</strong> = Requires highly controlled, low-stimulation space</span>
+                                <span><strong style="color: #10b981;">10</strong> = Tolerates varied, active sensory environments</span>
+                            </div>
+                        </div>
+
+                        <!-- Dimension 3 -->
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label for="score-assistance">3. Instructional Support:</label>
+                                <span class="score-value" id="val-assistance">6 / 10</span>
+                            </div>
+                            <input type="range" id="score-assistance" min="0" max="10" value="6" class="slider">
+                            <div class="scale-anchors"><span>0 = Continuous/direct instructional support</span><span>10 = Follows tasks independently</span></div>
+                            <div class="slider-labels">
+                                <span><strong style="color: #ef4444;">0</strong> = Requires continuous direct support & prompting</span>
+                                <span><strong style="color: #10b981;">10</strong> = Independently follows visual workflows</span>
+                            </div>
+                        </div>
+
+                        <!-- Dimension 4 -->
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label for="score-safety">4. Safety / Sensory Tolerance:</label>
+                                <span class="score-value" id="val-safety">7 / 10</span>
+                            </div>
+                            <input type="range" id="score-safety" min="0" max="10" value="7" class="slider">
+                            <div class="scale-anchors"><span>0 = High safety/sensory support need</span><span>10 = High tolerance / safer independence</span></div>
+                            <div class="slider-labels">
+                                <span><strong style="color: #ef4444;">0</strong> = High support & sensory break accommodation need</span>
+                                <span><strong style="color: #10b981;">10</strong> = High sensory tolerance & equipment independence</span>
+                            </div>
+                        </div>
+
+                        <!-- Dimension 5 -->
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label for="score-social">5. Social Interaction (Workstyle Preference):</label>
+                                <span class="score-value" id="val-social">5 / 10</span>
+                            </div>
+                            <input type="range" id="score-social" min="0" max="10" value="5" class="slider">
+                            <div class="scale-anchors"><span>0 = Prefers minimal interaction</span><span>10 = Prefers frequent interaction</span></div>
+                            <div class="slider-labels">
+                                <span><strong style="color: #3b82f6;">0</strong> = Solo workstation preference</span>
+                                <span><strong style="color: #6366f1;">10</strong> = Team / collaborative preference</span>
+                            </div>
+                        </div>
+
+                        <hr class="form-divider">
+
+                        <div class="form-group">
+                            <label for="accommodation-notes">Specific Accommodations or Sensory Triggers Needed:</label>
+                            <textarea id="accommodation-notes" rows="3" placeholder="e.g., Prefers noise-canceling headphones, color-coded bin labels, scheduled 10-minute quiet sensory breaks every 2 hours.">Noise-reducing earmuffs in machinery areas; step-by-step visual workstation guide; structured 15-minute quiet breaks.</textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Live Results & Recommendations Panel -->
+                <div class="card results-card snapshot-card">
+                    <h3><i class="fa-solid fa-chart-pie"></i> Functional Profile & Support Snapshot</h3>
+                    
+                    <div class="chart-container">
+                        <canvas id="assessmentRadarChart"></canvas>
+                    </div>
+
+                    <div class="recommendation-box" id="recommendation-output">
+                        <h4><i class="fa-solid fa-circle-check"></i> Support & Environment Considerations:</h4>
+                        <div class="rec-tags" id="rec-tags-container">
+                            <span class="badge">Higher independence</span>
+                            <span class="badge">Varied settings tolerated</span>
+                            <span class="badge">Prompts / visual steps</span>
+                        </div>
+                        <p id="rec-description" class="rec-desc-text">
+                            This profile suggests exploring <strong>structured, lower-stimulation environments with clear visual workflows</strong>. Use the scores together with direct observation, the individual’s preferences, existing IEP/transition information, and guidance from the person’s support team. This tool does not diagnose ability or determine eligibility.
+                        </p>
+                    </div>
+
+                    <div class="pro-callout" style="margin-top: 1rem;">
+                        <div>
+                            <i class="fa-solid fa-file-pdf pro-icon"></i>
+                            <strong>Export IEP / Transition Support Summary</strong>
+                            <p>Generate a support-summary PDF that can help organize functional, sensory, accommodation, and transition information for discussion with an existing IEP, school, vocational-rehabilitation, accessibility, or care team.</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" id="download-assessment-pdf-2"><i class="fa-solid fa-download"></i> Export PDF</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: ANNUAL STUDENT FORMS / RCER -->
+        <section id="rcer-section" class="app-section">
+            <div class="section-header">
+                <div>
+                    <h2><i class="fa-solid fa-file-circle-check"></i> Annual Student Forms (RCER)</h2>
+                    <p class="section-desc">A yearly support booklet for organizing student health, school, functional, sensory, communication, supervision, and accommodation information. Access official state health forms via the <a href="https://dph.illinois.gov/topics-services/life-stages-populations/maternal-child-family-health-services/school-health.html" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: 600;">Illinois Department of Public Health (IDPH) School Health Portal <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i></a>.</p>
+                </div>
+                <div class="section-actions">
+                    <a href="https://dph.illinois.gov/topics-services/life-stages-populations/maternal-child-family-health-services/school-health.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fa-solid fa-building-columns"></i> Official IDPH State Forms <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <button class="btn btn-primary" id="download-rcer-pdf"><i class="fa-solid fa-file-arrow-down"></i> Download Annual Forms Summary (PDF)</button>
+                </div>
+            </div>
+
+            <div class="info-banner">
+                <div class="banner-content">
+                    <i class="fa-solid fa-file-medical banner-icon"></i>
+                    <div>
+                        <strong>Official State Health Forms Resource:</strong> For required annual physical examination, dental, vision, and immunization forms, visit the official <a href="https://dph.illinois.gov/topics-services/life-stages-populations/maternal-child-family-health-services/school-health.html" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: 700; text-decoration: underline;">IDPH School Health Requirements Portal <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i></a>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card form-card" id="rcer-form-printable">
+                <div class="form-header">
+                    <h3><i class="fa-solid fa-file-signature"></i> Annual Student Support & Health Information</h3>
+                    <span class="badge badge-success">Yearly Review</span>
+                </div>
+                <form id="rcer-form" onsubmit="event.preventDefault();">
+                    <div class="form-row">
+                        <div class="form-group"><label for="rcer-applicant-name">Student / Participant Name:</label><input type="text" id="rcer-applicant-name" placeholder="Enter name or ID" value="Alex Taylor"></div>
+                        <div class="form-group"><label for="rcer-date">Review Date:</label><input type="date" id="rcer-date" value="2026-09-22"></div>
+                    </div>
+                    <hr class="form-divider">
+                    <h4><i class="fa-solid fa-person-circle-check"></i> Functional & Support Review</h4>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-card"><input type="checkbox" checked><div><strong>Communication Supports</strong><p>Visual, AAC, written, verbal, processing-time, or other communication supports.</p></div></label>
+                        <label class="checkbox-card"><input type="checkbox" checked><div><strong>Supervision & Safety Supports</strong><p>Document activities that are independent, prompted, supervised, or require direct assistance.</p></div></label>
+                        <label class="checkbox-card"><input type="checkbox" checked><div><strong>Sensory & Regulation Supports</strong><p>Noise, lighting, touch, crowding, movement, breaks, and regulation preferences.</p></div></label>
+                        <label class="checkbox-card"><input type="checkbox"><div><strong>School / Transition Supports</strong><p>Record relevant IEP transition supports, accommodations, routines, and goals already established by the student’s team.</p></div></label>
+                    </div>
+                    <hr class="form-divider">
+                    <div class="form-group">
+                        <label for="rcer-evaluator-comments">Annual Notes / Changes Since Last Review:</label>
+                        <textarea id="rcer-evaluator-comments" rows="4" placeholder="Document current supports, changes, strengths, concerns, and information to review with the student’s existing team.">Document current supports, changes, strengths, concerns, and information to review with the student’s existing team.</textarea>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- SECTION: SENSORY OVERLOAD & DE-ESCALATION KIT -->
+        <section id="deescalate-section" class="app-section">
+            <div class="section-header">
+                <div>
+                    <h2><i class="fa-solid fa-heart-pulse"></i> Sensory Overload & Emergency De-Escalation Kit</h2>
+                    <p class="section-desc">Instant quiet tools, calming soundscapes, box breathing guides, and a non-verbal Emergency Advocacy Card for school, training, work, community, or other overstimulating environments.</p>
+                </div>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="card deescalate-card">
+                    <div class="card-header-badge">
+                        <span class="badge badge-warning"><i class="fa-solid fa-triangle-exclamation"></i> Non-Verbal Advocacy Card</span>
+                    </div>
+                    <h3><i class="fa-solid fa-id-card"></i> "I Am Experiencing Sensory Overload" Card</h3>
+                    <p class="section-desc">Show this screen to support people, educators, supervisors, or caregivers when speaking feels overwhelming.</p>
+                    
+                    <div class="emergency-card-display">
+                        <div class="emergency-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                        <h4 class="emergency-msg">"I need a short sensory break."</h4>
+                        <p class="emergency-desc">I am experiencing sensory overstimulation (noise, light, or crowding). I am safe, but I need 10–15 minutes in a quiet, low-lit space to regulate my nervous system. Please give me space without physical contact.</p>
+                        <div class="emergency-details">
+                            <div><strong>Contact:</strong> <input type="text" id="card-contact-name" value="Caregiver / Support Advocate" style="display:inline; width:auto; border:none; background:transparent; font-weight:bold;"></div>
+                            <div><strong>Quiet Location:</strong> My designated quiet / low-stimulation space</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary btn-block" id="print-emergency-card"><i class="fa-solid fa-print"></i> Print Wallet Sensory Card</button>
+                </div>
+
+                <div class="card deescalate-card">
+                    <h3><i class="fa-solid fa-wind"></i> Box Breathing & Calming Soundscapes</h3>
+                    <p class="section-desc">Regulate your heart rate and nervous system with visual pacing and audio masking.</p>
+
+                    <div class="breathing-circle-wrapper">
+                        <div class="breathing-circle" id="breathing-circle">
+                            <span id="breathing-text">Inhale (4s)</span>
+                        </div>
+                        <button class="btn btn-primary" id="toggle-breathing-btn"><i class="fa-solid fa-play"></i> Start Box Breathing Guide</button>
+                    </div>
+
+                    <hr class="form-divider">
+
+                    <h4><i class="fa-solid fa-headphones"></i> Focus & Masking Soundscapes:</h4>
+                    <div class="soundscape-controls">
+                        <button class="btn btn-secondary sound-btn" data-sound="brown"><i class="fa-solid fa-volume-high"></i> Deep Brown Noise (Machinery Mask)</button>
+                        <button class="btn btn-secondary sound-btn" data-sound="rain"><i class="fa-solid fa-cloud-rain"></i> Gentle Soft Rain</button>
+                        <button class="btn btn-secondary sound-btn" data-sound="hum"><i class="fa-solid fa-fan"></i> Cleanroom Air Hum</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: VISUAL ROUTINE PLANNER & ENERGY BUDGETING -->
+        <section id="routine-section" class="app-section">
+            <div class="section-header">
+                <div>
+                    <h2><i class="fa-solid fa-calendar-check"></i> Visual Routine & Energy Budget Planner</h2>
+                    <p class="section-desc">Break shifts into clear visual micro-steps, track your daily energy ("Spoons"), and schedule proactive sensory breaks to prevent burnout.</p>
+                </div>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="card">
+                    <h3><i class="fa-solid fa-battery-half"></i> Daily Sensory Energy Budget ("Spoon Tracker")</h3>
+                    <p class="section-desc">Set your starting energy for the day and see how tasks impact your reserves.</p>
+                    
+                    <div class="spoon-display">
+                        <div class="spoon-count"><i class="fa-solid fa-utensils"></i> <span id="spoon-number">10</span> Spoons Remaining</div>
+                        <div class="spoon-bar-bg"><div class="spoon-bar-fill" id="spoon-fill" style="width: 100%;"></div></div>
+                    </div>
+
+                    <div class="spoon-actions" style="margin-top: 1rem;">
+                        <button class="btn btn-secondary btn-sm" id="spend-spoon-btn"><i class="fa-solid fa-minus"></i> High Sensory Task (-2 Spoons)</button>
+                        <button class="btn btn-secondary btn-sm" id="add-spoon-btn"><i class="fa-solid fa-plus"></i> Quiet Sensory Break (+2 Spoons)</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-list-check"></i> Visual Routine Micro-Checklist</h3>
+                    <p class="section-desc">Check off tasks one by one with visual satisfaction.</p>
+
+                    <div class="checklist">
+                        <label class="check-item">
+                            <input type="checkbox" checked>
+                            <div>
+                                <strong>8:00 AM - Prepare for Today’s First Activity</strong>
+                                <p>Review the visual schedule, gather needed items, and check support or sensory tools.</p>
+                            </div>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <div>
+                                <strong>9:30 AM - Focused Task Block</strong>
+                                <p>Follow the visual task steps and mark each completed step.</p>
+                            </div>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <div>
+                                <strong>10:30 AM - Scheduled 15-Min Sensory Break</strong>
+                                <p>Remove ear protection in quiet lounge, hydrate, and do 4-7-8 breathing.</p>
+                            </div>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox">
+                            <div>
+                                <strong>11:45 AM - Supported Activity / Review</strong>
+                                <p>Complete the activity independently, with prompts, or under supervision as appropriate.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: SKILLS & SUPPORTED ACTIVITIES -->
+        <section id="products-section" class="app-section">
+            <div class="section-header"><div>
+                <h2><i class="fa-solid fa-shapes"></i> Skills & Supported Activities</h2>
+                <p class="section-desc">Record physical ability separately from the level of support needed. Add any real-life activity, then choose Independent, Prompted, Supervised, or Direct Assistance.</p>
+            </div></div>
+            <div class="card interactive-card">
+                <div class="activity-add-row" style="display:flex; gap:10px;">
+                    <input id="new-activity-name" type="text" placeholder="Example: use hand tools, take a bus, prepare lunch" style="flex:1;">
+                    <button class="btn btn-primary" id="add-activity-btn"><i class="fa-solid fa-plus"></i> Add Activity</button>
+                </div>
+                <div id="activity-list" class="activity-list" style="margin-top:1rem;"></div>
+                <div class="empty-state" id="activity-empty" style="margin-top:1rem; padding:1.5rem; text-align:center;">No activities yet. Add the first activity above.</div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: TRANSITION RESOURCES -->
+        <section id="colleges-section" class="app-section">
+            <div class="section-header"><div>
+                <h2><i class="fa-solid fa-route"></i> Transition Resources</h2>
+                <p class="section-desc">Organize questions and support needs for transitions between high school, postsecondary education, training, community programs, and work.</p>
+            </div></div>
+            <div class="card">
+                <h3>Transition Planning Questions</h3>
+                <div class="checklist">
+                    <label class="check-item"><input type="checkbox"><div><strong>Bring existing IEP / transition information</strong><p>Identify accommodations, communication supports, routines, and goals that remain relevant.</p></div></label>
+                    <label class="check-item"><input type="checkbox"><div><strong>Describe functional support needs</strong><p>Separate physical ability from supervision, judgment, communication, and sensory support needs.</p></div></label>
+                    <label class="check-item"><input type="checkbox"><div><strong>Identify the next support contact</strong><p>Record the appropriate school, program, accessibility, vocational, care, or family contact for follow-up.</p></div></label>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: EDUCATION & FUNDING CHECKLIST -->
+        <section id="fafsa-section" class="app-section">
+            <div class="section-header"><div>
+                <h2><i class="fa-solid fa-list-check"></i> Education & Funding Checklist</h2>
+                <p class="section-desc">A neutral checklist for organizing questions about education, school health, and support funding. Eligibility and benefits vary by program and jurisdiction; verify details with official state programs.</p>
+            </div></div>
+            <div class="card" id="fafsa-form-printable">
+                <div class="checklist">
+                    <label class="check-item"><input type="checkbox" checked><div><strong>Review official state school health forms (IDPH)</strong><p>Access official health requirements, dental exams, and eye exams via the <a href="https://dph.illinois.gov/topics-services/life-stages-populations/maternal-child-family-health-services/school-health.html" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: 600;">IDPH School Health Portal <i class="fa-solid fa-arrow-up-right-from-square"></i></a>.</p></div></label>
+                    <label class="check-item"><input type="checkbox"><div><strong>Review official financial-aid resources</strong><p>Use the official government or institution source for current requirements and deadlines.</p></div></label>
+                    <label class="check-item"><input type="checkbox"><div><strong>Ask about disability / accessibility supports</strong><p>Confirm available services directly with the relevant program or institution.</p></div></label>
+                    <label class="check-item"><input type="checkbox"><div><strong>Ask about vocational-rehabilitation resources</strong><p>Availability, eligibility, services, and funding vary. Verify with the appropriate agency.</p></div></label>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: SUPPORT NETWORK -->
+        <section id="mentors-section" class="app-section">
+            <div class="section-header"><div>
+                <h2><i class="fa-solid fa-people-roof"></i> My Support Network</h2>
+                <p class="section-desc">Save the people already supporting the individual. Nothing here sends messages or contacts anyone automatically.</p>
+            </div></div>
+            <div class="card interactive-card">
+                <div class="support-add-grid" style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <input id="support-name" type="text" placeholder="Name" style="flex:1;">
+                    <select id="support-role" style="flex:1;">
+                        <option>Family / Caregiver</option><option>Educator / IEP Team</option>
+                        <option>Accessibility / Transition</option><option>Vocational / Community</option>
+                        <option>Healthcare</option><option>Other</option>
+                    </select>
+                    <input id="support-contact" type="text" placeholder="Phone/email or note (optional)" style="flex:1.5;">
+                    <button class="btn btn-primary" id="add-support-btn"><i class="fa-solid fa-user-plus"></i> Add</button>
+                </div>
+                <div id="support-list" class="support-list" style="margin-top:1rem;"></div>
+                <div class="empty-state" id="support-empty" style="margin-top:1rem; padding:1.5rem; text-align:center;">No support contacts saved yet.</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p><strong>Neurodivergent Space</strong> &copy; 2026. Functional support, accessibility, and transition organization tools.</p>
+            <p class="footer-sub">Built for RevenueCat Shipaton 2026. Integrated with RevenueCat SDK Paywall & Form Export Engine.</p>
+        </div>
+    </footer>
+
+    <!-- REVENUECAT PAYWALL MODAL -->
+    <div class="modal-backdrop" id="paywall-modal">
+        <div class="modal-card">
+            <button class="modal-close" id="close-paywall-btn">&times;</button>
+            <div class="paywall-badge"><i class="fa-solid fa-bolt"></i> REVENUECAT POWERED</div>
+            <h2>Unlock Neurodivergent Space Pro Pass</h2>
+            <p class="paywall-subtitle">Save and organize functional profiles, annual support information, transition summaries, and personalized accessibility tools.</p>
+
+            <div class="paywall-features">
+                <div class="paywall-feature-item">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <div>
+                        <strong>IEP / Transition Support Summary PDFs</strong>
+                        <p>Generate structured support summaries for review with existing school, IEP, transition, accessibility, vocational-rehabilitation, or care teams.</p>
+                    </div>
+                </div>
+                <div class="paywall-feature-item">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <div>
+                        <strong>Saved Profiles & Support History</strong>
+                        <p>Keep multiple profiles and yearly support summaries organized for future review.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pricing-options">
+                <div class="price-card active" data-plan="$4.99/mo">
+                    <div class="price-title">Monthly Pass</div>
+                    <div class="price-amount">$4.99 <span>/ mo</span></div>
+                    <p class="price-sub">Cancel anytime. 7-day free trial.</p>
+                </div>
+                <div class="price-card" data-plan="$39.99/yr">
+                    <div class="price-badge">Save 33%</div>
+                    <div class="price-title">Annual Pass</div>
+                    <div class="price-amount">$39.99 <span>/ yr</span></div>
+                    <p class="price-sub">Billed annually ($3.33/mo).</p>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-block btn-lg" id="simulate-purchase-btn">
+                <i class="fa-solid fa-lock"></i> Start 7-Day Free Trial (RevenueCat SDK)
+            </button>
+        </div>
+    </div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const KEY='nds_v3_state';
+  const defaults={theme:'dark-mode',font:'Lexend',fontSize:100,motion:true,spoons:10,activities:[],support:[],profiles:[],currentProfile:null};
+  let state={...defaults,...JSON.parse(localStorage.getItem(KEY)||'{}')};
+  const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+  const toast=(m)=>{let t=$('#nds-toast');if(!t){t=document.createElement('div');t.id='nds-toast';t.className='toast';document.body.appendChild(t);}t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)};
+  const fields=['participant-name','assessor-role','target-age-group','target-industry','score-independence','score-environment','score-assistance','score-safety','score-social','accommodation-notes','rcer-applicant-name','rcer-date','rcer-evaluator-comments'];
+  const snapshot=()=>Object.fromEntries(fields.map(id=>[id,$('#'+id)?.value ?? '']));
+  const restore=o=>fields.forEach(id=>{const e=$('#'+id); if(e && o && o[id]!==undefined){e.value=o[id]; e.dispatchEvent(new Event('input'));}});
+  function setTheme(cls){
+    document.body.classList.remove('calming-mode','dark-mode','high-contrast','focus-mode');
+    if(cls) document.body.classList.add(cls);
+    state.theme=cls; save();
+    $$('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.theme===cls));
+  }
+  $$('.theme-btn').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.theme)));
+  $$('.font-family-btn').forEach(b=>b.addEventListener('click',()=>{state.font=b.dataset.font;document.body.style.fontFamily=b.dataset.font==='OpenSans'?'"Open Sans",Arial,sans-serif':'"Lexend",Arial,sans-serif';save();$$('.font-family-btn').forEach(x=>x.classList.toggle('active',x===b));}));
+  $('#font-increase')?.addEventListener('click',()=>{state.fontSize=Math.min(130,state.fontSize+10);document.documentElement.style.fontSize=state.fontSize+'%';$('#font-size-indicator').textContent=state.fontSize+'%';save()});
+  $('#font-decrease')?.addEventListener('click',()=>{state.fontSize=Math.max(80,state.fontSize-10);document.documentElement.style.fontSize=state.fontSize+'%';$('#font-size-indicator').textContent=state.fontSize+'%';save()});
+  $('#toggle-motion')?.addEventListener('click',()=>{state.motion=!state.motion;document.body.classList.toggle('no-motion',!state.motion);$('#toggle-motion').innerHTML='<i class="fa-solid fa-film"></i> Motion: '+(state.motion?'On':'Off');save()});
+  $$('.nav-link').forEach(b=>b.addEventListener('click',()=>{$('#'+b.dataset.target)?.scrollIntoView({behavior:state.motion?'smooth':'auto'});$$('.nav-link').forEach(x=>x.classList.toggle('active',x===b));}));
+  
+  // Chart.js initialization
+  const ctxEl = $('#assessmentRadarChart');
+  let radarChart = null;
+  if (ctxEl) {
+      radarChart = new Chart(ctxEl.getContext('2d'), {
+          type: 'radar',
+          data: {
+              labels: ['Independence', 'Env Tolerance', 'Task Autonomy', 'Safety Tolerance', 'Social Preference'],
+              datasets: [{
+                  data: [7, 8, 6, 7, 5],
+                  backgroundColor: 'rgba(104, 64, 96, 0.25)',
+                  borderColor: '#684060',
+                  borderWidth: 2
+              }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, scales: { r: { min: 0, max: 10 } }, plugins: { legend: { display: false } } }
+      });
+  }
+
+  // Slider labels and recommendation
+  const sliderMap={independence:'val-independence',environment:'val-environment',assistance:'val-assistance',safety:'val-safety',social:'val-social'};
+  Object.entries(sliderMap).forEach(([k,v])=>$('#score-'+k)?.addEventListener('input',e=>{
+      const o=$('#'+v);if(o)o.textContent=e.target.value+' / 10';
+      if(radarChart){
+          const idx=['independence','environment','assistance','safety','social'].indexOf(k);
+          if(idx>=0){radarChart.data.datasets[0].data[idx]=+e.target.value; radarChart.update();}
+      }
+      updateSummary();
+  }));
+
+  function updateSummary(){
+    const a=+($('#score-independence')?.value||0), e=+($('#score-environment')?.value||0), i=+($('#score-assistance')?.value||0), s=+($('#score-safety')?.value||0), social=+($('#score-social')?.value||0);
+    const tags=[];
+    if(a<4)tags.push('High daily support'); else if(a<7)tags.push('Some independence support'); else tags.push('Higher independence');
+    if(e<4)tags.push('Controlled sensory setting'); else if(e<7)tags.push('Moderately predictable setting'); else tags.push('Varied settings tolerated');
+    if(i<4)tags.push('Direct instruction'); else if(i<7)tags.push('Prompts / visual steps'); else tags.push('Independent task following');
+    if(s<4)tags.push('High safety/sensory support'); else if(s<7)tags.push('Some safety accommodations'); else tags.push('Higher tolerance');
+    tags.push(social<4?'Prefers low interaction':social<7?'Flexible social preference':'Prefers frequent interaction');
+    const c=$('#rec-tags-container'); if(c)c.innerHTML=tags.map(t=>`<span class="badge">${t}</span>`).join(' ');
+    const d=$('#rec-description'); if(d)d.innerHTML='Use this snapshot with direct observation, the individual’s preferences, existing IEP/transition information, and the support team. <strong>Scores describe support considerations, not diagnosis, intelligence, eligibility, or human worth.</strong>';
+  }
+
+  // Save/new profile
+  $('#save-profile-btn')?.addEventListener('click',()=>{
+    const data=snapshot(), name=data['participant-name']||'Unnamed profile', id=state.currentProfile||Date.now().toString();
+    const rec={id,name,updated:new Date().toISOString(),data,activities:state.activities,support:state.support};
+    const ix=state.profiles.findIndex(p=>p.id===id); if(ix>=0)state.profiles[ix]=rec;else state.profiles.push(rec);
+    state.currentProfile=id;save();toast('Profile saved on this device');
+  });
+  $('#new-profile-btn')?.addEventListener('click',()=>{state.currentProfile=null;fields.forEach(id=>{const e=$('#'+id);if(e&&(e.tagName==='INPUT'||e.tagName==='TEXTAREA'))e.value='';});state.activities=[];state.support=[];renderActivities();renderSupport();save();toast('New blank profile started')});
+  
+  // Activities
+  function renderActivities(){
+    const box=$('#activity-list'), empty=$('#activity-empty'); if(!box)return;
+    box.innerHTML=state.activities.map(a=>`<div class="activity-item" data-id="${a.id}"><div class="activity-head"><strong>${escapeHtml(a.name)}</strong><button class="icon-btn delete-activity" aria-label="Delete"><i class="fa-solid fa-trash"></i></button></div><div class="support-levels">${['Independent','Prompted','Supervised','Direct Assistance'].map(x=>`<button class="level-btn ${a.level===x?'selected':''}" data-level="${x}">${x}</button>`).join('')}</div><textarea class="activity-note" placeholder="Optional note: safety, communication, sensory, or supervision detail">${escapeHtml(a.note||'')}</textarea></div>`).join('');
+    empty.style.display=state.activities.length?'none':'block';
+    $$('.activity-item').forEach(el=>{
+      el.querySelectorAll('.level-btn').forEach(b=>b.onclick=()=>{const a=state.activities.find(x=>x.id===el.dataset.id);a.level=b.dataset.level;save();renderActivities()});
+      el.querySelector('.activity-note').oninput=e=>{state.activities.find(x=>x.id===el.dataset.id).note=e.target.value;save()};
+      el.querySelector('.delete-activity').onclick=()=>{state.activities=state.activities.filter(x=>x.id!==el.dataset.id);save();renderActivities()};
+    });
+  }
+  $('#add-activity-btn')?.addEventListener('click',()=>{const e=$('#new-activity-name'),name=e.value.trim();if(!name)return;state.activities.push({id:Date.now().toString(),name,level:'Prompted',note:''});e.value='';save();renderActivities()});
+  
+  // Support contacts
+  function renderSupport(){
+    const box=$('#support-list'), empty=$('#support-empty');if(!box)return;
+    box.innerHTML=state.support.map(x=>`<div class="support-item" data-id="${x.id}"><div class="support-head"><div><strong>${escapeHtml(x.name)}</strong> <span class="badge">${escapeHtml(x.role)}</span><div>${escapeHtml(x.contact||'')}</div></div><button class="icon-btn delete-support"><i class="fa-solid fa-trash"></i></button></div></div>`).join('');
+    empty.style.display=state.support.length?'none':'block';
+    $$('.delete-support').forEach(b=>b.onclick=()=>{const id=b.closest('.support-item').dataset.id;state.support=state.support.filter(x=>x.id!==id);save();renderSupport()});
+  }
+  $('#add-support-btn')?.addEventListener('click',()=>{const n=$('#support-name').value.trim();if(!n)return;state.support.push({id:Date.now().toString(),name:n,role:$('#support-role').value,contact:$('#support-contact').value.trim()});$('#support-name').value='';$('#support-contact').value='';save();renderSupport()});
+  
+  // Spoon tracker
+  function renderSpoons(){const n=Math.max(0,Math.min(10,state.spoons));if($('#spoon-number'))$('#spoon-number').textContent=n;if($('#spoon-fill'))$('#spoon-fill').style.width=(n*10)+'%'}
+  $('#spend-spoon-btn')?.addEventListener('click',()=>{state.spoons=Math.max(0,state.spoons-2);save();renderSpoons()});
+  $('#add-spoon-btn')?.addEventListener('click',()=>{state.spoons=Math.min(10,state.spoons+2);save();renderSpoons()});
+  
+  // Persist checkboxes and routine checklist generically
+  $$('input[type=checkbox]').forEach((e,i)=>{const k='check_'+(e.id||i);if(localStorage.getItem(k)!==null)e.checked=localStorage.getItem(k)==='1';e.addEventListener('change',()=>localStorage.setItem(k,e.checked?'1':'0'))});
+  
+  // Emergency card
+  $('#card-contact-name')?.addEventListener('input',e=>localStorage.setItem('nds_card_contact',e.target.value));
+  if($('#card-contact-name'))$('#card-contact-name').value=localStorage.getItem('nds_card_contact')||$('#card-contact-name').value;
+  $('#print-emergency-card')?.addEventListener('click',()=>window.print());
+  
+  // Breathing guide
+  let breathingTimer=null,phase=0;const phases=[['Inhale',4],['Hold',4],['Exhale',4],['Hold',4]];
+  $('#toggle-breathing-btn')?.addEventListener('click',()=>{
+    if(breathingTimer){clearInterval(breathingTimer);breathingTimer=null;$('#breathing-text').textContent='Ready';$('#toggle-breathing-btn').innerHTML='<i class="fa-solid fa-play"></i> Start Box Breathing Guide';return}
+    phase=0;let left=4;const tick=()=>{const [name]=phases[phase];$('#breathing-text').textContent=`${name} (${left}s)`;left--;if(left<0){phase=(phase+1)%4;left=4}};
+    tick();breathingTimer=setInterval(tick,1000);$('#toggle-breathing-btn').innerHTML='<i class="fa-solid fa-stop"></i> Stop Breathing Guide';
+  });
+  
+  // Clean PDF Export via html2pdf & fallback print
+  function downloadElementAsPDF(elementId, filename) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+      const clone = element.cloneNode(true);
+      clone.querySelectorAll('.btn, .preset-dropdown, .badge-info, button').forEach(el => el.remove());
+      const docHeader = document.createElement('div');
+      docHeader.style.cssText = 'text-align: center; border-bottom: 2px solid #1e293b; padding-bottom: 12px; margin-bottom: 20px; font-weight: bold; color: #0f172a;';
+      docHeader.innerHTML = '<div style="font-size: 22px; color: #684060; margin-bottom: 4px; font-weight: 800;">NEURODIVERGENT SPACE</div><div style="font-size: 13px; color: #475569; letter-spacing: 0.5px;">FUNCTIONAL ASSESSMENT & SUPPORT SUMMARY REPORT</div>';
+      clone.insertBefore(docHeader, clone.firstChild);
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'padding: 24px; background: #ffffff; color: #0f172a; font-family: Lexend, sans-serif;';
+      wrapper.appendChild(clone);
+      const opt = { margin: [0.4, 0.4, 0.4, 0.4], filename: filename, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true, logging: false }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } };
+      if (window.html2pdf) {
+          window.html2pdf().set(opt).from(wrapper).save().then(() => toast('PDF downloaded')).catch(() => window.print());
+      } else { window.print(); }
+  }
+
+  ['download-assessment-pdf','download-assessment-pdf-2'].forEach(id=>$('#'+id)?.addEventListener('click',()=>downloadElementAsPDF('assessment-form-printable','Functional_Assessment_Summary.pdf')));
+  $('#download-rcer-pdf')?.addEventListener('click',()=>downloadElementAsPDF('rcer-form-printable','Annual_Student_Support_Booklet.pdf'));
+
+  // Paywall: RevenueCat Web SDK Connection
+  const REVENUECAT_API_KEY = "test_htDOrLlAjytogAcwHXyODXNUFLp";
+  if (window.Purchases) {
+      try { window.Purchases.configure({ apiKey: REVENUECAT_API_KEY, appUserId: "nd_space_user_" + Math.floor(Math.random() * 10000) }); } catch(e){}
+  }
+  const pay=$('#paywall-modal');$('#open-paywall-btn')?.addEventListener('click',()=>pay?.classList.add('open'));$('#close-paywall-btn')?.addEventListener('click',()=>pay?.classList.remove('open'));
+  $$('.price-card').forEach(p=>p.onclick=()=>{$$('.price-card').forEach(x=>x.classList.remove('active'));p.classList.add('active')});
+  $('#simulate-purchase-btn')?.addEventListener('click',()=>{toast('RevenueCat Pro Pass Activated'); pay?.classList.remove('open');});
+
+  function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+  
+  // Restore state
+  setTheme(state.theme);document.documentElement.style.fontSize=state.fontSize+'%';if($('#font-size-indicator'))$('#font-size-indicator').textContent=state.fontSize+'%';document.body.classList.toggle('no-motion',!state.motion);
+  renderActivities();renderSupport();renderSpoons();updateSummary();
+  fields.forEach(id=>$('#'+id)?.addEventListener('change',()=>localStorage.setItem('nds_working_form',JSON.stringify(snapshot()))));
+  const working=JSON.parse(localStorage.getItem('nds_working_form')||'null'); if(working)restore(working);
+})();
+</script>
+
+<div class="toast" id="nds-toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>

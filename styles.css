@@ -1,0 +1,305 @@
+/* ======================================================
+   NEURODIVERGENT SPACE V6 — SOPHISTICATED EARTH-TONE UI
+   ====================================================== */
+:root {
+    --font-lexend: 'Lexend', system-ui, sans-serif;
+    --font-opensans: 'Open Sans', system-ui, sans-serif;
+    --font-family-current: var(--font-lexend);
+    --font-scale: 1.0;
+
+    --ink: #35251f;
+    --ink2: #50372d;
+    --cream: #fff8ee;
+    --paper: #fbf2e7;
+    --clay: #a8755d;
+    --clay2: #c9977d;
+    --sage: #7b8666;
+    --sage2: #a8ad8e;
+    --plum: #684060;
+    --lilac: #d9bfd9;
+    --line: #d6c2b4;
+    --muted: #6f5b50;
+    --shadow: 0 14px 32px rgba(69, 43, 34, 0.12);
+
+    --bg-main: #f5eee6;
+    --bg-card: #fffaf3;
+    --bg-header: linear-gradient(110deg, #f8ede7, #efe2d7 55%, #e4d7c6);
+    --bg-sensory: #50352d;
+    --text-main: #35251f;
+    --text-muted: #6f5b50;
+    --border-color: #d6c2b4;
+
+    --primary: #684060;
+    --primary-hover: #52304b;
+    --primary-light: #f2e3d8;
+    --secondary: #a8755d;
+    --success: #7b8666;
+    --success-light: #edf0e4;
+    --info: #4b2d45;
+    --info-light: #eadde6;
+    --warning: #a8755d;
+    
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 18px;
+}
+
+body.theme-dark {
+    --bg-main: #211c19;
+    --bg-card: #2d2622;
+    --bg-header: #30251f;
+    --bg-sensory: #191512;
+    --text-main: #f7eadb;
+    --text-muted: #bfaea0;
+    --border-color: #4a3c35;
+    --primary: #c9977d;
+    --primary-light: #3d2f28;
+}
+
+body.theme-contrast {
+    --bg-main: #000000;
+    --bg-card: #000000;
+    --bg-header: #000000;
+    --bg-sensory: #000000;
+    --text-main: #ffffff;
+    --text-muted: #cccccc;
+    --border-color: #ffffff;
+    --primary: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+    font-family: var(--font-family-current); 
+    font-size: calc(1rem * var(--font-scale)); 
+    line-height: 1.6; 
+    background-color: var(--bg-main) !important; 
+    color: var(--text-main) !important; 
+    padding-top: 145px; 
+}
+
+/* 1. Sensory Toolbar (Top Dark Brown Rail) */
+.sensory-bar { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    height: 48px; 
+    background-color: #50352d !important; 
+    color: #fff7ed !important;
+    border-bottom: 1px solid rgba(255,255,255,0.16) !important; 
+    z-index: 1000; 
+    display: flex; 
+    align-items: center; 
+    padding: 0 1.5rem; 
+}
+.sensory-container { max-width: 1500px; width: 100%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.sensory-group { display: flex; align-items: center; gap: 0.5rem; }
+.sensory-label { color: #fff7ed !important; font-size: 0.88rem; font-weight: 500; }
+.sensory-btn { 
+    background: #684b40 !important; 
+    color: #fff8ef !important; 
+    border: 1px solid #8a695b !important; 
+    padding: 0.3rem 0.7rem; 
+    border-radius: 10px; 
+    font-size: 0.8rem; 
+    font-weight: 600;
+    cursor: pointer; 
+}
+.sensory-btn.active { 
+    background: #b07a61 !important; 
+    color: #241914 !important; 
+    border-color: #c9957c !important; 
+}
+
+/* 2. Main App Header & Navigation */
+.app-header {
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    min-height: 75px;
+    height: auto;
+    background: linear-gradient(110deg, #f8ede7, #efe2d7 55%, #e4d7c6) !important;
+    color: var(--ink) !important;
+    border-bottom: 1px solid #cfb7a7 !important;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.header-container {
+    max-width: 1500px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 320px minmax(0,1fr) auto;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.logo-title { color: #4b2d45 !important; font-size: 1.8rem !important; font-weight: 800; line-height: 1.1; }
+.logo-subtitle { color: #604a3f !important; font-size: 0.88rem; }
+.logo-icon { background: #efe0d7 !important; color: #6a405f !important; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.2rem 0;
+    white-space: nowrap;
+    scrollbar-width: thin;
+}
+
+.nav-link {
+    background: #f8f0e9 !important;
+    color: #422c26 !important;
+    border: 1px solid #cdb5a6 !important;
+    border-radius: 13px !important;
+    padding: 0.55rem 0.95rem !important;
+    font-weight: 800 !important;
+    font-size: 0.86rem;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.nav-link.active { 
+    background: #684060 !important; 
+    color: #fff8f0 !important; 
+    border-color: #684060 !important; 
+}
+
+.btn-pro-unlock { 
+    background: #8a5b42 !important; 
+    color: #fff8ef !important; 
+    border: 1px solid #8a5b42 !important; 
+    border-radius: 13px !important; 
+    padding: 0.65rem 1rem !important; 
+    white-space: nowrap !important; 
+    font-weight: 800 !important; 
+}
+
+/* 3. Main Content & Banners */
+.main-content { max-width: 1500px; margin: 1.5rem auto 3rem; padding: 0 1.5rem; }
+
+/* Section Tab Display Controls */
+.app-section { display: none !important; }
+.app-section.active { display: block !important; animation: fadeInSection 0.25s ease-in-out; }
+
+@keyframes fadeInSection {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.info-banner {
+    background: linear-gradient(115deg, #f2e3d8, #e8dfcf) !important;
+    color: #382821 !important;
+    border: 1px solid #ccb5a5 !important;
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow) !important;
+}
+.info-banner strong, .info-banner i { color: #4b2d45 !important; }
+
+/* 4. Cards & Form Controls */
+.card, .form-card { 
+    background: #fffaf3 !important; 
+    color: #35251f !important; 
+    border: 1px solid #d6c2b4 !important; 
+    border-radius: 18px !important; 
+    padding: 1.5rem; 
+    margin-bottom: 1.5rem; 
+    box-shadow: var(--shadow) !important; 
+}
+
+.grid-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.5rem; }
+.grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.grid-3-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+h1, h2, h3 { color: #4a3044 !important; }
+p, label, .slider-labels { color: #5f4b40 !important; }
+
+.slider-group { 
+    background: #fffaf3 !important; 
+    border: 1px solid #d6c2b4 !important; 
+    padding: 1rem 1.25rem; 
+    border-radius: var(--radius-sm); 
+    margin-bottom: 1.25rem; 
+}
+.slider-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-weight: 700; color: #4a3044 !important; }
+.slider { width: 100%; height: 8px; border-radius: 4px; background: #d6c2b4; outline: none; appearance: none; cursor: pointer; accent-color: #7b8666 !important; }
+.slider::-webkit-slider-thumb { appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #7b8666; }
+.slider-labels { display: flex; justify-content: space-between; font-size: 0.78rem; color: #5f4b40 !important; margin-top: 0.35rem; font-weight: 500; }
+
+input[type="text"], input[type="date"], select, textarea {
+    background: #ffffff !important;
+    color: #2f211c !important;
+    border: 1px solid #bca596 !important;
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.8rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    width: 100%;
+}
+input::placeholder, textarea::placeholder { color: #7a685d !important; opacity: 1 !important; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.65rem 1.2rem; border-radius: 11px !important; font-family: inherit; font-size: 0.9rem; font-weight: 800 !important; cursor: pointer; border: 1px solid transparent; }
+.btn-primary { background: #6e485f !important; color: #fff9f1 !important; border: 1px solid #6e485f !important; }
+.btn-secondary { background: #e9dfcf !important; color: #35251f !important; border: 1px solid #c9b6a7 !important; }
+.btn-block { width: 100%; }
+
+.badge { background: #eadde6 !important; color: #4e3048 !important; border: 1px solid #cdb5c8 !important; padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+.checkbox-card { padding: 18px !important; background: #fffaf3 !important; border: 1px solid #d6c2b4 !important; border-radius: 12px; }
+.checkbox-card:has(input:checked) { background: #edf0e4 !important; border-color: #9da483 !important; outline: 2px solid #9da483 !important; }
+
+/* 5. Emergency De-escalation & Spoons */
+.emergency-card-display { background: #fdf2f2 !important; border: 2px dashed #f87171 !important; border-radius: var(--radius-md); padding: 1.5rem; text-align: center; margin: 1.25rem 0; color: #991b1b !important; }
+.emergency-icon { font-size: 3rem; color: #ef4444; margin-bottom: 0.5rem; }
+.emergency-msg { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; color: #991b1b !important; }
+
+.breathing-circle-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 1.5rem 0; gap: 1.25rem; }
+.breathing-circle { width: 140px; height: 140px; border-radius: 50%; background: #f2e3d8; border: 4px solid #684060; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: #684060; transition: transform 4s ease-in-out; }
+.breathing-circle.expand { transform: scale(1.4); background: #edf0e4; border-color: #7b8666; color: #7b8666; }
+
+.spoon-display { background: #f2e3d8; border: 1px solid #d6c2b4; padding: 1.25rem; border-radius: var(--radius-md); margin-top: 1rem; }
+.spoon-count { font-size: 1.2rem; font-weight: 700; color: #684060; margin-bottom: 0.75rem; }
+.spoon-bar-bg { width: 100%; height: 14px; background: #cbd5e1; border-radius: 7px; overflow: hidden; }
+.spoon-bar-fill { height: 100%; background: linear-gradient(90deg, #7b8666, #684060); border-radius: 7px; transition: width 0.3s ease; }
+
+/* Modal & Paywall */
+.modal-backdrop { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+.modal-backdrop.active { display: flex; }
+.modal-card { background: #fffaf3 !important; border-radius: 18px; max-width: 520px; width: 100%; padding: 2rem; position: relative; border: 1px solid #d6c2b4; }
+.modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: #35251f; }
+
+/* 6. Dedicated Print Engine */
+@media print {
+    .sensory-bar, .app-header, .app-footer, .info-banner, .section-actions, .pro-callout, .modal-backdrop, .btn, .preset-dropdown, nav { display: none !important; }
+    body { padding-top: 0 !important; background: #ffffff !important; color: #000000 !important; font-size: 11pt !important; }
+    .main-content { margin: 0 !important; padding: 0 !important; max-width: 100% !important; }
+    .app-section { display: block !important; }
+    .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; background: transparent !important; }
+    .form-card { border: 2px solid #334155 !important; border-radius: 8px !important; padding: 1.5rem !important; margin-bottom: 1rem !important; page-break-inside: avoid; }
+    .form-card::before { content: "NEURODIVERGENT SPACE — FUNCTIONAL SUPPORT REPORT"; display: block; font-size: 14pt; font-weight: 700; text-align: center; border-bottom: 2px solid #1e293b; padding-bottom: 8px; margin-bottom: 16px; }
+}
+
+@media(max-width:1150px) {
+    .header-container { grid-template-columns: 1fr auto !important; }
+    .main-nav { grid-column: 1/3 !important; }
+}
+@media(max-width:760px) {
+    .sensory-controls { justify-content: flex-start !important; }
+    .header-container { display: flex !important; flex-direction: column !important; align-items: stretch !important; }
+    .main-content { padding: 18px 14px !important; }
+    .app-header { padding: 16px !important; }
+}
